@@ -5,13 +5,20 @@
   </div>
 
   <div class="row">
-    <div class="col-lg-8 offset-lg-2 mb-5">
+    <div class="col-lg-8 offset-lg-2 mb-5 input-btn">
       <input
         type="text"
         class="form-control form-control-lg"
         placeholder="Enter todo..."
         [(ngModel)]="inputText"
-        (keyup.enter)="addTodo()">
+        (keyup.enter)="addTodo()"
+      >
+      <button
+        type="submit"
+        class="btn btn-secondary"
+        (click)="addTodo()">
+        Add
+      </button>
     </div>
   </div>
 
@@ -21,7 +28,7 @@
       <div cdkDropList class="example-list"
            id="list-todo"
            [cdkDropListData]="todo"
-           [cdkDropListConnectedTo]="['list-progress']"
+           [cdkDropListConnectedTo]="['list-progress', 'list-completed']"
            (cdkDropListDropped)="drop($event)">
         <div class="example-box" *ngFor="let item of todo" cdkDrag>{{item}}</div>
       </div>
