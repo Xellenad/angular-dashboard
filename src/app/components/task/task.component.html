@@ -1,12 +1,23 @@
 <div class="container">
 
   <div class="row">
-    <h1 class="text-center">TODO LIST</h1>
+    <h1 class="text-center">DASHBOARD</h1>
+  </div>
+
+  <div class="row">
+    <div class="col-lg-8 offset-lg-2 mb-5">
+      <input
+        type="text"
+        class="form-control form-control-lg"
+        placeholder="Enter todo..."
+        [(ngModel)]="inputText"
+        (keyup.enter)="addTodo()">
+    </div>
   </div>
 
   <div class="row">
     <div class="col-lg-4">
-      <h3>To-do</h3>
+      <h4>To-do</h4>
       <div cdkDropList class="example-list"
            id="list-todo"
            [cdkDropListData]="todo"
@@ -16,7 +27,7 @@
       </div>
     </div>
     <div class="col-lg-4">
-      <h3>In progress</h3>
+      <h4>In progress</h4>
       <div cdkDropList class="example-list"
            id="list-progress"
            [cdkDropListData]="progress"
@@ -26,7 +37,7 @@
       </div>
     </div>
     <div class="col-lg-4">
-      <h3>Completed</h3>
+      <h4>Completed</h4>
       <div cdkDropList class="example-list"
            id="list-completed"
            [cdkDropListData]="completed"

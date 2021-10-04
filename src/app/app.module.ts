@@ -1,9 +1,11 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { TaskComponent } from './components/task/task.component';
+
 
 @NgModule({
   declarations: [
@@ -12,7 +14,8 @@ import { TaskComponent } from './components/task/task.component';
   ],
   imports: [
     BrowserModule,
-    DragDropModule
+    DragDropModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

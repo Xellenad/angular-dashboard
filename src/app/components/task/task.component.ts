@@ -11,6 +11,7 @@ export class TaskComponent  {
   todo: string[] = ['lorem3', 'Lorem ipsum dolor.', 'Lorem ipsum', 'Lorem sum', 'Lorem ipsumLorem ipsum']
   progress: string[] = []
   completed: string[] = []
+  inputText: string = ''
 
   drop(event: CdkDragDrop<string[]>) {
     if (event.previousContainer === event.container) {
@@ -22,4 +23,12 @@ export class TaskComponent  {
         event.currentIndex);
     }
   }
+
+  addTodo() {
+    if (this.inputText.trim()) {
+      this.todo.unshift(this.inputText)
+      this.inputText = ''
+    }
+  }
+
 }
