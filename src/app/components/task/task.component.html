@@ -1,13 +1,41 @@
 <div class="container">
 
   <div class="row">
-    <h1 class="text-center">Todo...</h1>
+    <h1 class="text-center">TODO LIST</h1>
   </div>
 
-  <div class="example-box" cdkDrag>
-    Drag me around
+  <div class="row">
+    <div class="col-lg-4">
+      <h3>To-do</h3>
+      <div cdkDropList class="example-list"
+           id="list-todo"
+           [cdkDropListData]="todo"
+           [cdkDropListConnectedTo]="['list-progress']"
+           (cdkDropListDropped)="drop($event)">
+        <div class="example-box" *ngFor="let item of todo" cdkDrag>{{item}}</div>
+      </div>
+    </div>
+    <div class="col-lg-4">
+      <h3>In progress</h3>
+      <div cdkDropList class="example-list"
+           id="list-progress"
+           [cdkDropListData]="progress"
+           [cdkDropListConnectedTo]="['list-todo', 'list-completed']"
+           (cdkDropListDropped)="drop($event)">
+        <div class="example-box" *ngFor="let item of progress" cdkDrag>{{item}}</div>
+      </div>
+    </div>
+    <div class="col-lg-4">
+      <h3>Completed</h3>
+      <div cdkDropList class="example-list"
+           id="list-completed"
+           [cdkDropListData]="completed"
+           [cdkDropListConnectedTo]="['list-progress']"
+           (cdkDropListDropped)="drop($event)">
+        <div class="example-box" *ngFor="let item of completed" cdkDrag>{{item}}</div>
+      </div>
+    </div>
   </div>
-
 </div>
 
 
