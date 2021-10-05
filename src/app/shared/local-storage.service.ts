@@ -19,13 +19,13 @@ export class LocalStorageService {
     return JSON.parse(storageData);
   }
 
-  setLocalStorageData = (key: string, data: Todo) => {
+  setLocalStorageData = (key: string, data: Todo[]) => {
     const storageData = this.getLocalStorageData(key);
     if (!storageData) {
-      return window.localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify({[key]: data}));
+      return localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify({[key]: data}));
     }
     storageData[key] = data;
-    window.localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(storageData));
+    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(storageData));
   }
 
 }

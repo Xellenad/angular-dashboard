@@ -46,7 +46,7 @@ export class TaskComponent  {
         id: uuidv()
       }
       this.todos.unshift(todo)
-      this.localStorageService.setLocalStorageData(LOCAL_STORAGE_KEY, todo)
+      this.localStorageService.setLocalStorageData(LOCAL_STORAGE_KEY, this.todos)
       this.inputText = ''
     }
   }
