@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
+// @ts-ignore
+import { v4 as uuidv4 } from 'uuid';
 
 import { LocalStorageService } from '../../shared/local-storage.service';
 
@@ -15,8 +17,7 @@ export class TaskComponent  {
   completed: string[] = []
   inputText: string = ''
 
-  constructor(private localStorageService : LocalStorageService) {
-  }
+  constructor(private localStorageService : LocalStorageService) {}
 
 
   drop(event: CdkDragDrop<string[]>) {
@@ -33,9 +34,6 @@ export class TaskComponent  {
   addTodo() {
     if (this.inputText.trim()) {
       this.todo.unshift(this.inputText)
-
-      this.localStorageService.setItem('todo', this.inputText)
-
       this.inputText = ''
     }
   }
