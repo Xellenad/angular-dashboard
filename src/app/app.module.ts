@@ -5,12 +5,14 @@ import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { TaskComponent } from './components/task/task.component';
+import { FilterPipe } from './shared/filter.pipe';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    TaskComponent
+    TaskComponent,
+    FilterPipe
   ],
   imports: [
     BrowserModule,

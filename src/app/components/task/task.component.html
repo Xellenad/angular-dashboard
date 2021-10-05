@@ -20,6 +20,15 @@
         Add
       </button>
     </div>
+
+    <div class="col-lg-8 offset-lg-2 mb-5 input-btn">
+      <input
+        type="text"
+        class="form-control form-control-lg"
+        placeholder="Search...."
+        [(ngModel)]="searchInput">
+    </div>
+
   </div>
 
   <div class="row">
@@ -30,7 +39,7 @@
            [cdkDropListData]="todos"
            [cdkDropListConnectedTo]="['list-progress', 'list-completed']"
            (cdkDropListDropped)="drop($event)">
-        <div class="example-box" *ngFor="let item of todos" cdkDrag>{{item.text}}</div>
+        <div class="example-box" *ngFor="let item of todos | filter:searchInput" cdkDrag>{{item.text}}</div>
       </div>
     </div>
     <div class="col-lg-4">
@@ -40,7 +49,7 @@
            [cdkDropListData]="progress"
            [cdkDropListConnectedTo]="['list-todo', 'list-completed']"
            (cdkDropListDropped)="drop($event)">
-        <div class="example-box" *ngFor="let item of progress" cdkDrag>{{item.text}}</div>
+        <div class="example-box" *ngFor="let item of progress | filter:searchInput" cdkDrag>{{item.text}}</div>
       </div>
     </div>
     <div class="col-lg-4">
@@ -50,7 +59,7 @@
            [cdkDropListData]="completed"
            [cdkDropListConnectedTo]="['list-progress', 'list-todo']"
            (cdkDropListDropped)="drop($event)">
-        <div class="example-box" *ngFor="let item of completed" cdkDrag>{{item.text}}</div>
+        <div class="example-box" *ngFor="let item of completed | filter:searchInput" cdkDrag>{{item.text}}</div>
       </div>
     </div>
   </div>

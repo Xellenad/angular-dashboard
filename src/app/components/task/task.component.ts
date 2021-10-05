@@ -24,6 +24,7 @@ export class TaskComponent  {
   progress: Todo[] = []
   completed: Todo[] = []
   inputText: string = ''
+  searchInput: string = ''
 
   constructor(private localStorageService : LocalStorageService) {}
 
