@@ -48,7 +48,7 @@
       <div cdkDropList class="example-list"
            id="list-completed"
            [cdkDropListData]="completed"
-           [cdkDropListConnectedTo]="['list-progress']"
+           [cdkDropListConnectedTo]="['list-progress', 'list-todo']"
            (cdkDropListDropped)="drop($event)">
         <div class="example-box" *ngFor="let item of completed" cdkDrag>{{item}}</div>
       </div>
