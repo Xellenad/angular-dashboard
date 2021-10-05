@@ -15,16 +15,17 @@ import { LOCAL_STORAGE_KEY } from '../../shared/constans';
 export class TaskComponent  {
 
   todos: Todo[] = [
-    {text: 'Lorem ipsum dolor sit', id: 1},
-    {text: 'Lorem ipsum sit', id: 2},
-    {text: 'Lorem ipsum dolor ', id: 3},
-    {text: 'Lorem  dolor sit', id: 4},
-    {text: 'ipsum dolor sit', id: 5}
+    {title: 'lorem', text: 'Lorem ipsum dolor sit', id: 1},
+    {title: 'lorem', text: 'Lorem ipsum sit', id: 2},
+    {title: 'lorem', text: 'Lorem ipsum dolor ', id: 3},
+    {title: 'lorem', text: 'Lorem  dolor sit', id: 4},
+    {title: 'lorem', text: 'ipsum dolor sit', id: 5}
   ]
   progress: Todo[] = []
   completed: Todo[] = []
   inputText: string = ''
   searchInput: string = ''
+  inputTitle: string = ''
 
   constructor(private localStorageService : LocalStorageService) {}
 
@@ -41,16 +42,16 @@ export class TaskComponent  {
   }
 
   addTodo() {
-    if (this.inputText.trim()) {
+    if (this.inputText.trim() && this.inputTitle.trim()) {
       const todo: Todo = {
+        title: this.inputTitle,
         text: this.inputText,
-        id: uuidv()
+        id: uuidv(),
       }
       this.todos.unshift(todo)
       this.localStorageService.setLocalStorageData(LOCAL_STORAGE_KEY, this.todos)
       this.inputText = ''
     }
   }
-
 
 }

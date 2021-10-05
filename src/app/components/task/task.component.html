@@ -5,21 +5,25 @@
   </div>
 
   <div class="row">
-    <div class="col-lg-8 offset-lg-2 mb-5 input-btn">
+    <form class="col-lg-8 offset-lg-2 mb-5 ">
+
       <input
         type="text"
-        class="form-control form-control-lg"
+        name="inputText"
+        class="form-control form-control-lg mb-2"
+        placeholder="Enter title..."
+        [(ngModel)]="inputTitle">
+
+      <input
+        type="text"
+        name="inputText"
+        class="form-control form-control-lg mb-3"
         placeholder="Enter todo..."
-        [(ngModel)]="inputText"
-        (keyup.enter)="addTodo()"
-      >
-      <button
-        type="submit"
-        class="btn btn-secondary"
-        (click)="addTodo()">
-        Add
-      </button>
-    </div>
+        [(ngModel)]="inputText">
+
+      <button type="submit" class="btn btn-secondary btn-lg" (click)="addTodo()">Add</button>
+
+    </form>
 
     <div class="col-lg-8 offset-lg-2 mb-5 input-btn">
       <input
@@ -39,7 +43,10 @@
            [cdkDropListData]="todos"
            [cdkDropListConnectedTo]="['list-progress', 'list-completed']"
            (cdkDropListDropped)="drop($event)">
-        <div class="example-box" *ngFor="let item of todos | filter:searchInput" cdkDrag>{{item.text}}</div>
+        <div class="example-box" *ngFor="let item of todos | filter:searchInput" cdkDrag>
+          <p> {{item.title}}</p>
+          <p>{{ item.text}}</p>
+        </div>
       </div>
     </div>
     <div class="col-lg-4">
@@ -49,7 +56,10 @@
            [cdkDropListData]="progress"
            [cdkDropListConnectedTo]="['list-todo', 'list-completed']"
            (cdkDropListDropped)="drop($event)">
-        <div class="example-box" *ngFor="let item of progress | filter:searchInput" cdkDrag>{{item.text}}</div>
+        <div class="example-box" *ngFor="let item of progress | filter:searchInput" cdkDrag>
+          <p> {{item.title}}</p>
+          <p>{{ item.text}}</p>
+        </div>
       </div>
     </div>
     <div class="col-lg-4">
@@ -59,7 +69,10 @@
            [cdkDropListData]="completed"
            [cdkDropListConnectedTo]="['list-progress', 'list-todo']"
            (cdkDropListDropped)="drop($event)">
-        <div class="example-box" *ngFor="let item of completed | filter:searchInput" cdkDrag>{{item.text}}</div>
+        <div class="example-box" *ngFor="let item of completed | filter:searchInput" cdkDrag>
+          <p> {{item.title}}</p>
+          <p>{{ item.text}}</p>
+        </div>
       </div>
     </div>
   </div>
