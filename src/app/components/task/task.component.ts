@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
+
 // @ts-ignore
 import { v4 as uuidv } from 'uuid';
 
@@ -26,7 +27,8 @@ export class TaskComponent  {
   searchInput: string = ''
   inputTitle: string = ''
 
-  constructor(private localStorageService : LocalStorageService) {}
+  constructor(
+    private localStorageService: LocalStorageService) {}
 
 
   drop(event: CdkDragDrop<Todo[]>) {
@@ -57,4 +59,7 @@ export class TaskComponent  {
     this.todos = this.todos.filter((todo)=> todo.id != id);
     console.log('Delete')
   }
+
+
+
 }

@@ -6,21 +6,25 @@ import { FormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { TaskComponent } from './components/task/task.component';
 import { FilterPipe } from './shared/filter.pipe';
+import { RefactorWindowComponent } from './components/refactor-window/refactor-window.component';
+
 
 
 @NgModule({
   declarations: [
     AppComponent,
     TaskComponent,
-    FilterPipe
+    FilterPipe,
+    RefactorWindowComponent
   ],
   imports: [
     BrowserModule,
     DragDropModule,
-    FormsModule
+    FormsModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [RefactorWindowComponent]
 })
 export class AppModule {
 }
