@@ -25,7 +25,7 @@
 
     </form>
 
-    <div class="col-lg-8 offset-lg-2 mb-5 input-btn">
+    <div class="col-lg-8 offset-lg-2 mb-2 input-btn">
       <input
         type="text"
         class="form-control form-control-lg"
@@ -44,8 +44,10 @@
            [cdkDropListConnectedTo]="['list-progress', 'list-completed']"
            (cdkDropListDropped)="drop($event)">
         <div class="example-box" *ngFor="let item of todos | filter:searchInput" cdkDrag>
-          <p> {{item.title}}</p>
-          <p>{{ item.text}}</p>
+          <p class="example-box-title">{{item.title}}</p>
+          <p class="example-box-text">{{ item.text}}</p>
+          <button type="button" class="btn btn-outline-danger"><i class="bi bi-trash"></i></button>
+          <button type="button" class="btn btn-outline-primary"><i class="bi bi-pencil"></i></button>
         </div>
       </div>
     </div>
@@ -57,8 +59,10 @@
            [cdkDropListConnectedTo]="['list-todo', 'list-completed']"
            (cdkDropListDropped)="drop($event)">
         <div class="example-box" *ngFor="let item of progress | filter:searchInput" cdkDrag>
-          <p> {{item.title}}</p>
-          <p>{{ item.text}}</p>
+          <p class="example-box-title">{{item.title}}</p>
+          <p class="example-box-text">{{ item.text}}</p>
+          <button type="button" class="btn btn-outline-danger"><i class="bi bi-trash"></i></button>
+          <button type="button" class="btn btn-outline-primary"><i class="bi bi-pencil"></i></button>
         </div>
       </div>
     </div>
@@ -70,11 +74,12 @@
            [cdkDropListConnectedTo]="['list-progress', 'list-todo']"
            (cdkDropListDropped)="drop($event)">
         <div class="example-box" *ngFor="let item of completed | filter:searchInput" cdkDrag>
-          <p> {{item.title}}</p>
-          <p>{{ item.text}}</p>
+          <p class="example-box-title">{{item.title}}</p>
+          <p class="example-box-text">{{ item.text}}</p>
+          <button type="button" class="btn btn-outline-danger"><i class="bi bi-trash"></i></button>
+          <button type="button" class="btn btn-outline-primary"><i class="bi bi-pencil"></i></button>
         </div>
       </div>
     </div>
   </div>
 </div>
-
