@@ -19,7 +19,6 @@ export class TaskComponent  {
     {title: 'lorem', text: 'Lorem ipsum sit', id: 2},
     {title: 'lorem', text: 'Lorem ipsum dolor ', id: 3},
     {title: 'lorem', text: 'Lorem  dolor sit', id: 4},
-    {title: 'lorem', text: 'ipsum dolor sit', id: 5}
   ]
   progress: Todo[] = []
   completed: Todo[] = []
@@ -54,4 +53,8 @@ export class TaskComponent  {
     }
   }
 
+  deleteTodo(id: number) {
+    this.todos = this.todos.filter((todo)=> todo.id != id);
+    console.log('Delete')
+  }
 }

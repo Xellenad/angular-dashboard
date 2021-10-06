@@ -36,6 +36,7 @@
   </div>
 
   <div class="row">
+
     <div class="col-lg-4">
       <h4>To-do</h4>
       <div cdkDropList class="example-list"
@@ -46,11 +47,13 @@
         <div class="example-box" *ngFor="let item of todos | filter:searchInput" cdkDrag>
           <p class="example-box-title">{{item.title}}</p>
           <p class="example-box-text">{{ item.text}}</p>
-          <button type="button" class="btn btn-outline-danger"><i class="bi bi-trash"></i></button>
+          <button type="button" class="btn btn-outline-danger" (click)="deleteTodo(item.id)"><i class="bi bi-trash"></i>
+          </button>
           <button type="button" class="btn btn-outline-primary"><i class="bi bi-pencil"></i></button>
         </div>
       </div>
     </div>
+
     <div class="col-lg-4">
       <h4>In progress</h4>
       <div cdkDropList class="example-list"
@@ -66,6 +69,7 @@
         </div>
       </div>
     </div>
+
     <div class="col-lg-4">
       <h4>Completed</h4>
       <div cdkDropList class="example-list"
@@ -81,5 +85,8 @@
         </div>
       </div>
     </div>
+
   </div>
+
 </div>
+
