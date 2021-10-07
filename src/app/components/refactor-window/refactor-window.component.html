@@ -2,11 +2,12 @@
 <mat-dialog-content>
   <input type="text" placeholder="title" class="form-control mb-2">
   <input type="text" placeholder="text" class="form-control mb-2">
+  <p>{{ data.title }}</p>
+  <p>{{ data.text }}</p>
 </mat-dialog-content>
 <mat-dialog-actions>
   <button mat-dialog-close (click)="onNoClick()" class="btn btn-outline-danger m-lg-2">Cancel</button>
   <button class="btn btn-outline-primary" (click)="refactorTodo()">Save</button>
-
 </mat-dialog-actions>
 
 

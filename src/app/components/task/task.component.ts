@@ -65,10 +65,11 @@ export class TaskComponent implements OnInit {
     this.localStorageService.setLocalStorageData(LOCAL_STORAGE_LIST, this.todos)
   }
 
-  openDialog() {
+  openDialog(item: Todo) {
     let dialogRef = this.dialog.open(RefactorWindowComponent, {
       height: '250px',
       width: '400px',
+      data: item
     });
 
     dialogRef.afterClosed (). subscribe ( result => {
