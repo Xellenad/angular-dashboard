@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { MatDialog } from '@angular/material/dialog';
 
@@ -15,14 +15,9 @@ import { RefactorWindowComponent } from '../refactor-window/refactor-window.comp
   templateUrl: './task.component.html',
   styleUrls: ['./task.component.scss']
 })
-export class TaskComponent  {
+export class TaskComponent implements OnInit {
 
-  todos: Todo[] = [
-    {title: 'lorem', text: 'Lorem ipsum dolor sit', id: 1},
-    {title: 'lorem', text: 'Lorem ipsum sit', id: 2},
-    {title: 'lorem', text: 'Lorem ipsum dolor ', id: 3},
-    {title: 'lorem', text: 'Lorem  dolor sit', id: 4},
-  ]
+  todos: Todo[] = []
   progress: Todo[] = []
   completed: Todo[] = []
   inputText: string = ''
@@ -32,7 +27,13 @@ export class TaskComponent  {
   constructor(
     private localStorageService: LocalStorageService,
     private dialog: MatDialog
-    ) {}
+  ) {}
+
+
+  ngOnInit() {
+    const todos = this.localStorageService.getLocalStorageData(LOCAL_STORAGE_LIST);
+    this.todos = todos ? todos : [];
+  }
 
 
   drop(event: CdkDragDrop<Todo[]>) {
