@@ -6,7 +6,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { v4 as uuidv } from 'uuid';
 import { LocalStorageService } from '../../shared/local-storage.service';
 import { Todo } from '../../shared/todo.interface';
-import { LOCAL_STORAGE_KEY } from '../../shared/constans';
+import { LOCAL_STORAGE_LIST } from '../../shared/constans';
 import { RefactorWindowComponent } from '../refactor-window/refactor-window.component';
 
 
@@ -54,14 +54,14 @@ export class TaskComponent  {
         id: uuidv(),
       }
       this.todos.unshift(todo)
-      this.localStorageService.setLocalStorageData(LOCAL_STORAGE_KEY, this.todos)
+      this.localStorageService.setLocalStorageData(LOCAL_STORAGE_LIST, this.todos)
       this.inputText = ''
     }
   }
 
   deleteTodo(id: number) {
     this.todos = this.todos.filter((todo)=> todo.id != id);
-    console.log('Delete')
+    this.localStorageService.setLocalStorageData(LOCAL_STORAGE_LIST, this.todos)
   }
 
   openDialog() {

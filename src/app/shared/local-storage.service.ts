@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 
-import { Todo } from './todo.interface';
 import { LOCAL_STORAGE_KEY } from './constans';
 
 @Injectable({
@@ -8,7 +7,7 @@ import { LOCAL_STORAGE_KEY } from './constans';
 })
 export class LocalStorageService {
 
-  getLocalStorageData = (key: string) => {
+  getLocalStorageData = (key?: string) => {
     const storageData = localStorage.getItem(LOCAL_STORAGE_KEY);
     if (!storageData) {
       return null;
@@ -19,8 +18,8 @@ export class LocalStorageService {
     return JSON.parse(storageData);
   }
 
-  setLocalStorageData = (key: string, data: Todo[]) => {
-    const storageData = this.getLocalStorageData(key);
+  setLocalStorageData = (key: string, data: any) => {
+    const storageData = this.getLocalStorageData();
     if (!storageData) {
       return localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify({[key]: data}));
     }
