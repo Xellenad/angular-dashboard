@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { MatDialogRef } from '@angular/material/dialog';
 
 
 @Component({
@@ -8,8 +9,10 @@ import { Component } from '@angular/core';
 })
 export class RefactorWindowComponent {
 
-  constructor() {
+  constructor(
+    public dialogRef: MatDialogRef<RefactorWindowComponent>) {}
+
+  onNoClick(): void {
+    this.dialogRef.close();
   }
-
-
 }

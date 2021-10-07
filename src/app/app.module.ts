@@ -2,11 +2,17 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { FormsModule } from '@angular/forms';
+import { MAT_DIALOG_DEFAULT_OPTIONS, MatDialogModule } from '@angular/material/dialog';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatFormFieldModule } from '@angular/material/form-field';
+
 
 import { AppComponent } from './app.component';
 import { TaskComponent } from './components/task/task.component';
 import { FilterPipe } from './shared/filter.pipe';
 import { RefactorWindowComponent } from './components/refactor-window/refactor-window.component';
+import { MatInputModule } from '@angular/material/input';
+
 
 
 
@@ -15,16 +21,19 @@ import { RefactorWindowComponent } from './components/refactor-window/refactor-w
     AppComponent,
     TaskComponent,
     FilterPipe,
-    RefactorWindowComponent
+    RefactorWindowComponent,
   ],
   imports: [
     BrowserModule,
     DragDropModule,
     FormsModule,
+    MatDialogModule,
+    BrowserAnimationsModule,
+    MatFormFieldModule,
+    MatInputModule
   ],
   providers: [],
   bootstrap: [AppComponent],
-  entryComponents: [RefactorWindowComponent]
 })
 export class AppModule {
 }

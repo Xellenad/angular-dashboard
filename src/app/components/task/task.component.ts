@@ -1,12 +1,14 @@
-import { Component, Inject } from '@angular/core';
+import { Component } from '@angular/core';
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
+import { MatDialog } from '@angular/material/dialog';
 
 // @ts-ignore
 import { v4 as uuidv } from 'uuid';
-
 import { LocalStorageService } from '../../shared/local-storage.service';
 import { Todo } from '../../shared/todo.interface';
 import { LOCAL_STORAGE_KEY } from '../../shared/constans';
+import { RefactorWindowComponent } from '../refactor-window/refactor-window.component';
+
 
 @Component({
   selector: 'app-task',
@@ -28,7 +30,9 @@ export class TaskComponent  {
   inputTitle: string = ''
 
   constructor(
-    private localStorageService: LocalStorageService) {}
+    private localStorageService: LocalStorageService,
+    private dialog: MatDialog
+    ) {}
 
 
   drop(event: CdkDragDrop<Todo[]>) {
@@ -60,6 +64,13 @@ export class TaskComponent  {
     console.log('Delete')
   }
 
+  openDialog() {
+    let dialogRef = this.dialog.open(RefactorWindowComponent);
 
+    dialogRef.afterClosed (). subscribe ( result => {
+      console .log ( 'Window close' );
+    });
+  }
 
 }
+
