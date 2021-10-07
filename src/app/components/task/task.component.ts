@@ -66,7 +66,10 @@ export class TaskComponent implements OnInit {
   }
 
   openDialog() {
-    let dialogRef = this.dialog.open(RefactorWindowComponent);
+    let dialogRef = this.dialog.open(RefactorWindowComponent, {
+      height: '250px',
+      width: '400px',
+    });
 
     dialogRef.afterClosed (). subscribe ( result => {
       console .log ( 'Window close' );

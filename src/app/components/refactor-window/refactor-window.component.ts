@@ -15,4 +15,8 @@ export class RefactorWindowComponent {
   onNoClick(): void {
     this.dialogRef.close();
   }
+
+  refactorTodo() {
+
+  }
 }
