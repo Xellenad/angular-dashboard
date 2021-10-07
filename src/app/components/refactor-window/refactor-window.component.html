@@ -1,13 +1,17 @@
 <h2 mat-dialog-title>Refactor elements</h2>
 <mat-dialog-content>
-  <input type="text" placeholder="title" class="form-control mb-2">
-  <input type="text" placeholder="text" class="form-control mb-2">
-  <p>{{ data.title }}</p>
-  <p>{{ data.text }}</p>
+  <form [formGroup]="refactorForm">
+
+    <input type="text" placeholder="title" class="form-control mb-2" formControlName="title">
+    <div *ngIf="title?.errors?.required">Title required</div>
+
+    <input type="text" placeholder="text" class="form-control mb-2" formControlName="text">
+    <div *ngIf="text?.errors?.required">Text required</div>
+
+  </form>
 </mat-dialog-content>
 <mat-dialog-actions>
   <button mat-dialog-close (click)="onNoClick()" class="btn btn-outline-danger m-lg-2">Cancel</button>
   <button class="btn btn-outline-primary" (click)="refactorTodo()">Save</button>
 </mat-dialog-actions>
-
 
