@@ -73,7 +73,7 @@ export class TaskComponent implements OnInit {
     });
 
     dialogRef.afterClosed (). subscribe ( result => {
-      console .log ( 'Window close' );
+      console .log (result);
     });
   }
 

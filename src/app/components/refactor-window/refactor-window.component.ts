@@ -42,9 +42,7 @@ export class RefactorWindowComponent {
       text: this.refactorForm.controls['text'].value,
       id: this.data.id
     }
-    console.log(todo)
-    this.onAdd.emit(todo)
-    this.onNoClick()
+    this.dialogRef.close(todo)
   }
 
   onNoClick(): void {
