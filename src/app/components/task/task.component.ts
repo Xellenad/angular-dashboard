@@ -72,8 +72,13 @@ export class TaskComponent implements OnInit {
       data: item
     });
 
-    dialogRef.afterClosed (). subscribe ( result => {
-      console .log (result);
+    dialogRef.afterClosed().subscribe ( todo => {
+      if (todo) {
+        const item: any = this.todos.find(item => item.id == todo.id )
+        item.title = todo.title
+        item.text = todo.text
+        this.localStorageService.setLocalStorageData(LOCAL_STORAGE_LIST, this.todos)
+       }
     });
   }
 
