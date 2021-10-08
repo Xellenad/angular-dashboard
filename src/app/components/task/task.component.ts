@@ -67,7 +67,7 @@ export class TaskComponent implements OnInit {
 
   openDialog(item: Todo) {
     let dialogRef = this.dialog.open(RefactorWindowComponent, {
-      height: '250px',
+      height: '300px',
       width: '400px',
       data: item
     });
