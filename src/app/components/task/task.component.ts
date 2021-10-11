@@ -40,7 +40,6 @@ export class TaskComponent implements OnInit {
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     } else {
-      console.log(event);
       const data = event.item.data;
       const listId = event.container.id;
 
@@ -96,7 +95,7 @@ export class TaskComponent implements OnInit {
     }
   }
 
-  openDialog(item: TaskItemModel) {
+  editTodo(item: TaskItemModel) {
     let dialogRef = this.dialog.open(RefactorWindowComponent, {
       height: '300px',
       width: '400px',
