@@ -1,7 +1,6 @@
 import { Component, EventEmitter, Inject, Input, Output } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
-import { Todo } from '../../shared/todo.interface';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 
@@ -12,14 +11,14 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 })
 export class RefactorWindowComponent {
 
-  @Output() onAdd: EventEmitter<Todo> = new EventEmitter<Todo>()
+  @Output() onAdd: EventEmitter<any> = new EventEmitter<any>()
   refactorForm: FormGroup
 
   title: FormControl
   text: FormControl
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) public data: Todo,
+    @Inject(MAT_DIALOG_DATA) public data: any,
     public dialogRef: MatDialogRef<RefactorWindowComponent>,
     private fb: FormBuilder
   ) {
@@ -37,7 +36,7 @@ export class RefactorWindowComponent {
 
 
   refactorTodo() {
-    const todo: Todo = {
+    const todo = {
       title: this.refactorForm.controls['title'].value,
       text: this.refactorForm.controls['text'].value,
       id: this.data.id

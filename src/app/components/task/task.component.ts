@@ -1,12 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { MatDialog } from '@angular/material/dialog';
-
+import { TaskItemModel } from 'src/app/core';
 // @ts-ignore
 import { v4 as uuidv } from 'uuid';
 import { LocalStorageService } from '../../shared/local-storage.service';
-import { Todo } from '../../shared/todo.interface';
-import { LOCAL_STORAGE_LIST } from '../../shared/constans';
+
 import { RefactorWindowComponent } from '../refactor-window/refactor-window.component';
 
 
@@ -17,12 +16,13 @@ import { RefactorWindowComponent } from '../refactor-window/refactor-window.comp
 })
 export class TaskComponent implements OnInit {
 
-  todos: Todo[] = []
-  progress: Todo[] = []
-  completed: Todo[] = []
-  inputText: string = ''
-  searchInput: string = ''
-  inputTitle: string = ''
+  public allTodos: TaskItemModel[] = [];
+  public todos: TaskItemModel[] = []
+  public progress: TaskItemModel[] = []
+  public completed: TaskItemModel[] = []
+  public inputText: string = ''
+  public searchInput: string = ''
+  public inputTitle: string = ''
 
   constructor(
     private localStorageService: LocalStorageService,
@@ -31,41 +31,72 @@ export class TaskComponent implements OnInit {
 
 
   ngOnInit() {
-    const todos = this.localStorageService.getLocalStorageData(LOCAL_STORAGE_LIST);
-    this.todos = todos ? todos : [];
+    this.allTodos = this.localStorageService.getTodoList();
+    this.mapTodos();
   }
 
 
-  drop(event: CdkDragDrop<Todo[]>) {
+  drop(event: CdkDragDrop<TaskItemModel[]>) {
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     } else {
-      transferArrayItem(event.previousContainer.data,
-        event.container.data,
-        event.previousIndex,
-        event.currentIndex);
+      console.log(event);
+      const data = event.item.data;
+      const listId = event.container.id;
+
+      const item = this.allTodos.find((element) => element.id === data.id);
+
+      if (!item) {
+        return;
+      }
+      switch (listId) {
+
+        case 'list-progress': {
+          item.type = 'progress';
+          break;
+        }
+
+        case 'list-completed': {
+          item.type = 'completed';
+          break;
+        }
+
+        default: {
+          item.type = 'todo';
+        }
+
+      }
+
+      this.localStorageService.saveTodoList(this.allTodos);
+      this.mapTodos();
     }
   }
 
   addTodo() {
-    if (this.inputText.trim() && this.inputTitle.trim()) {
-      const todo: Todo = {
+    if (this.inputText.trim()) {
+      const todo: TaskItemModel = {
         title: this.inputTitle,
-        text: this.inputText,
+        subtitle: this.inputText,
         id: uuidv(),
+        type: 'todo'
       }
-      this.todos.unshift(todo)
-      this.localStorageService.setLocalStorageData(LOCAL_STORAGE_LIST, this.todos)
-      this.inputText = ''
+      this.allTodos.push(todo);
+      this.localStorageService.saveTodoList(this.allTodos);
+      this.mapTodos();
+      this.inputText = '';
     }
   }
 
-  deleteTodo(id: number) {
-    this.todos = this.todos.filter((todo)=> todo.id != id);
-    this.localStorageService.setLocalStorageData(LOCAL_STORAGE_LIST, this.todos)
+  deleteTodo(id: string) {
+    const todo = this.allTodos.findIndex((element) => element.id === id);
+    if (todo > -1 ) {
+      this.allTodos.splice(todo, 1);
+      this.localStorageService.saveTodoList(this.allTodos);
+      this.mapTodos();
+    }
   }
 
-  openDialog(item: Todo) {
+  openDialog(item: TaskItemModel) {
     let dialogRef = this.dialog.open(RefactorWindowComponent, {
       height: '300px',
       width: '400px',
@@ -77,10 +108,15 @@ export class TaskComponent implements OnInit {
         const item: any = this.todos.find(item => item.id == todo.id )
         item.title = todo.title
         item.text = todo.text
-        this.localStorageService.setLocalStorageData(LOCAL_STORAGE_LIST, this.todos)
+        //this.localStorageService.setLocalStorageData(LOCAL_STORAGE_LIST, this.todos)
        }
     });
   }
 
+  public mapTodos(): void {
+    this.todos = this.allTodos.filter((element) => element.type === 'todo');
+    this.progress = this.allTodos.filter((element) => element.type === 'progress');
+    this.completed = this.allTodos.filter((element) => element.type === 'completed');
+  }
 }
 
