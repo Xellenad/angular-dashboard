@@ -5,7 +5,6 @@ import { TaskItemModel } from 'src/app/core';
 // @ts-ignore
 import { v4 as uuidv } from 'uuid';
 import { LocalStorageService } from '../../shared/local-storage.service';
-
 import { RefactorWindowComponent } from '../refactor-window/refactor-window.component';
 
 
@@ -27,7 +26,8 @@ export class TaskComponent implements OnInit {
   constructor(
     private localStorageService: LocalStorageService,
     private dialog: MatDialog
-  ) {}
+  ) {
+  }
 
 
   ngOnInit() {
@@ -89,7 +89,7 @@ export class TaskComponent implements OnInit {
 
   deleteTodo(id: string) {
     const todo = this.allTodos.findIndex((element) => element.id === id);
-    if (todo > -1 ) {
+    if (todo > -1) {
       this.allTodos.splice(todo, 1);
       this.localStorageService.saveTodoList(this.allTodos);
       this.mapTodos();
@@ -103,13 +103,13 @@ export class TaskComponent implements OnInit {
       data: item
     });
 
-    dialogRef.afterClosed().subscribe ( todo => {
+    dialogRef.afterClosed().subscribe(todo => {
       if (todo) {
-        const item: any = this.todos.find(item => item.id == todo.id )
+        const item: any = this.todos.find(item => item.id == todo.id)
         item.title = todo.title
         item.text = todo.text
-        //this.localStorageService.setLocalStorageData(LOCAL_STORAGE_LIST, this.todos)
-       }
+
+      }
     });
   }
 

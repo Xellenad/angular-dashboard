@@ -12,7 +12,7 @@ export class FilterPipe implements PipeTransform {
     }
 
     return todos.filter(todo => {
-      return todo.text.toUpperCase().includes(search.toUpperCase())
+      return todo.subtitle.toUpperCase().includes(search.toUpperCase())
     })
   }
 
