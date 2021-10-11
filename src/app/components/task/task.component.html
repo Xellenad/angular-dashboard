@@ -46,7 +46,7 @@
            (cdkDropListDropped)="drop($event)">
         <div class="example-box" *ngFor="let item of todos | filter:searchInput" [cdkDragData]="item" cdkDrag>
           <p class="example-box-title">{{item.title}}</p>
-          <p class="example-box-text">{{ item.subtitle}}</p>
+          <p class="example-box-text">{{ item.text}}</p>
           <button type="button" class="btn btn-outline-danger" (click)="deleteTodo(item.id)"><i class="bi bi-trash"></i>
           </button>
           <button type="button" class="btn btn-outline-primary" (click)="openDialog(item)"><i class="bi bi-pencil"></i></button>
@@ -63,9 +63,9 @@
            (cdkDropListDropped)="drop($event)">
         <div class="example-box" *ngFor="let item of progress | filter:searchInput" [cdkDragData]="item" cdkDrag>
           <p class="example-box-title">{{item.title}}</p>
-          <p class="example-box-text">{{ item.subtitle}}</p>
+          <p class="example-box-text">{{ item.text}}</p>
           <button type="button" class="btn btn-outline-danger" (click)="deleteTodo(item.id)"><i class="bi bi-trash"></i></button>
-          <button type="button" class="btn btn-outline-primary"><i class="bi bi-pencil"></i></button>
+          <button type="button" class="btn btn-outline-primary" (click)="openDialog(item)"><i class="bi bi-pencil"></i></button>
         </div>
       </div>
     </div>
@@ -79,9 +79,9 @@
            (cdkDropListDropped)="drop($event)">
         <div class="example-box" *ngFor="let item of completed | filter:searchInput" [cdkDragData]="item" cdkDrag>
           <p class="example-box-title">{{item.title}}</p>
-          <p class="example-box-text">{{ item.subtitle}}</p>
+          <p class="example-box-text">{{ item.text}}</p>
           <button type="button" class="btn btn-outline-danger" (click)="deleteTodo(item.id)"><i class="bi bi-trash"></i></button>
-          <button type="button" class="btn btn-outline-primary"><i class="bi bi-pencil"></i></button>
+          <button type="button" class="btn btn-outline-primary" (click)="openDialog(item)"><i class="bi bi-pencil"></i></button>
         </div>
       </div>
     </div>

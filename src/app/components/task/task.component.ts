@@ -76,9 +76,9 @@ export class TaskComponent implements OnInit {
     if (this.inputText.trim()) {
       const todo: TaskItemModel = {
         title: this.inputTitle,
-        subtitle: this.inputText,
+        text: this.inputText,
         id: uuidv(),
-        type: 'todo'
+        type: 'todo',
       }
       this.allTodos.push(todo);
       this.localStorageService.saveTodoList(this.allTodos);
@@ -105,10 +105,11 @@ export class TaskComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(todo => {
       if (todo) {
-        const item: any = this.todos.find(item => item.id == todo.id)
-        item.title = todo.title
-        item.text = todo.text
-
+        const item: any = this.allTodos.find(item => item.id == todo.id)
+        item.title = todo.title;
+        item.text = todo.text;
+        this.localStorageService.saveTodoList(this.allTodos);
+        this.mapTodos();
       }
     });
   }
