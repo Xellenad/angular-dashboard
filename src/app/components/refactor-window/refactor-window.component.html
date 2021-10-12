@@ -15,7 +15,7 @@
       <input type="text" placeholder="text" class="form-control mb-2" formControlName="text">
     </div>
     <button mat-dialog-close (click)="onNoClick()" class="btn btn-outline-danger m-lg-2">Cancel</button>
-    <button class="btn btn-outline-primary" (click)="refactorTodo()">Save</button>
+    <button class="btn btn-outline-primary" [disabled]="!!text.errors" (click)="refactorTodo()">Save</button>
   </form>
 </mat-dialog-content>
 

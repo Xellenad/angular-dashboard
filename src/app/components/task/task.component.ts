@@ -1,13 +1,12 @@
-import { Component, OnInit } from '@angular/core';
-import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
-import { MatDialog } from '@angular/material/dialog';
-import { TaskItemModel } from 'src/app/core';
+import {Component, OnInit} from '@angular/core';
+import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
+import {MatDialog} from '@angular/material/dialog';
 // @ts-ignore
-import { v4 as uuidv } from 'uuid';
-import { LocalStorageService } from '../../shared/local-storage.service';
+import {v4 as uuidv} from 'uuid';
 
-import { RefactorWindowComponent } from '../refactor-window/refactor-window.component';
-
+import {LocalStorageService} from '../../shared/local-storage.service';
+import {RefactorWindowComponent} from '../refactor-window/refactor-window.component';
+import {TaskItemModel} from 'src/app/core';
 
 @Component({
   selector: 'app-task',
@@ -20,19 +19,47 @@ export class TaskComponent implements OnInit {
   public todos: TaskItemModel[] = []
   public progress: TaskItemModel[] = []
   public completed: TaskItemModel[] = []
-  public inputText: string = ''
-  public searchInput: string = ''
-  public inputTitle: string = ''
+  public inputText: string = '';
+  public searchInput: string = '';
+  public inputTitle: string = '';
+
+  public lists = [
+    {
+      title: 'To-do',
+      id: 'list-todo',
+      data: 'todos',
+      connectedTo: ['list-progress', 'list-completed'],
+      items: this.todos
+    },
+    {
+      title: 'In progress',
+      id: 'list-progress',
+      data: 'progress',
+      connectedTo: ['list-todo', 'list-completed'],
+      items: this.progress
+    },
+    {
+      title: 'Completed',
+      id: 'list-completed',
+      data: 'completed',
+      connectedTo: ['list-progress', 'list-todo'],
+      items: this.completed
+    },
+  ]
 
   constructor(
     private localStorageService: LocalStorageService,
     private dialog: MatDialog
-  ) {}
+  ) {
+  }
 
 
   ngOnInit() {
     this.allTodos = this.localStorageService.getTodoList();
     this.mapTodos();
+    this.lists[0].items = this.todos;
+    this.lists[1].items = this.progress;
+    this.lists[2].items = this.completed;
   }
 
 
@@ -40,7 +67,6 @@ export class TaskComponent implements OnInit {
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     } else {
-      console.log(event);
       const data = event.item.data;
       const listId = event.container.id;
 
@@ -76,7 +102,7 @@ export class TaskComponent implements OnInit {
     if (this.inputText.trim()) {
       const todo: TaskItemModel = {
         title: this.inputTitle,
-        subtitle: this.inputText,
+        text: this.inputText,
         id: uuidv(),
         type: 'todo'
       }
@@ -89,7 +115,7 @@ export class TaskComponent implements OnInit {
 
   deleteTodo(id: string) {
     const todo = this.allTodos.findIndex((element) => element.id === id);
-    if (todo > -1 ) {
+    if (todo > -1) {
       this.allTodos.splice(todo, 1);
       this.localStorageService.saveTodoList(this.allTodos);
       this.mapTodos();
@@ -103,13 +129,14 @@ export class TaskComponent implements OnInit {
       data: item
     });
 
-    dialogRef.afterClosed().subscribe ( todo => {
+    dialogRef.afterClosed().subscribe(todo => {
       if (todo) {
-        const item: any = this.todos.find(item => item.id == todo.id )
+        const item: any = this.allTodos.find(item => item.id == todo.id)
         item.title = todo.title
         item.text = todo.text
-        //this.localStorageService.setLocalStorageData(LOCAL_STORAGE_LIST, this.todos)
-       }
+        this.mapTodos();
+        this.localStorageService.saveTodoList(this.allTodos);
+      }
     });
   }
 
@@ -117,6 +144,9 @@ export class TaskComponent implements OnInit {
     this.todos = this.allTodos.filter((element) => element.type === 'todo');
     this.progress = this.allTodos.filter((element) => element.type === 'progress');
     this.completed = this.allTodos.filter((element) => element.type === 'completed');
+    // this.lists[0].todos = this.todos;
+    // this.lists[1].todos = this.progress;
+    // this.lists[2].todos = this.completed;
   }
 }
 
