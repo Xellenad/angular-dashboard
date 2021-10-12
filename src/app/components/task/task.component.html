@@ -44,13 +44,14 @@
            [cdkDropListData]="todos"
            [cdkDropListConnectedTo]="['list-progress', 'list-completed']"
            (cdkDropListDropped)="drop($event)">
-        <div class="example-box" *ngFor="let item of todos | filter:searchInput" [cdkDragData]="item" cdkDrag>
-          <p class="example-box-title">{{item.title}}</p>
-          <p class="example-box-text">{{ item.text}}</p>
-          <button type="button" class="btn btn-outline-danger" (click)="deleteTodo(item.id)"><i class="bi bi-trash"></i>
-          </button>
-          <button type="button" class="btn btn-outline-primary" (click)="editTodo(item)"><i class="bi bi-pencil"></i></button>
-        </div>
+
+        <app-task-item
+          [items]="todos"
+          [searchInput]="searchInput"
+          (onDelete)="deleteTodo($event)"
+          (onEdit)="editTodo($event)">
+        </app-task-item>
+
       </div>
     </div>
 
@@ -61,12 +62,14 @@
            [cdkDropListData]="progress"
            [cdkDropListConnectedTo]="['list-todo', 'list-completed']"
            (cdkDropListDropped)="drop($event)">
-        <div class="example-box" *ngFor="let item of progress | filter:searchInput" [cdkDragData]="item" cdkDrag>
-          <p class="example-box-title">{{item.title}}</p>
-          <p class="example-box-text">{{ item.text}}</p>
-          <button type="button" class="btn btn-outline-danger" (click)="deleteTodo(item.id)"><i class="bi bi-trash"></i></button>
-          <button type="button" class="btn btn-outline-primary" (click)="editTodo(item)"><i class="bi bi-pencil"></i></button>
-        </div>
+
+        <app-task-item
+          [items]="progress"
+          [searchInput]="searchInput"
+          (onDelete)="deleteTodo($event)"
+          (onEdit)="editTodo($event)">
+        </app-task-item>
+
       </div>
     </div>
 
@@ -77,12 +80,14 @@
            [cdkDropListData]="completed"
            [cdkDropListConnectedTo]="['list-progress', 'list-todo']"
            (cdkDropListDropped)="drop($event)">
-        <div class="example-box" *ngFor="let item of completed | filter:searchInput" [cdkDragData]="item" cdkDrag>
-          <p class="example-box-title">{{item.title}}</p>
-          <p class="example-box-text">{{ item.text}}</p>
-          <button type="button" class="btn btn-outline-danger" (click)="deleteTodo(item.id)"><i class="bi bi-trash"></i></button>
-          <button type="button" class="btn btn-outline-primary" (click)="editTodo(item)"><i class="bi bi-pencil"></i></button>
-        </div>
+
+        <app-task-item
+          [items]="completed"
+          [searchInput]="searchInput"
+          (onDelete)="deleteTodo($event)"
+          (onEdit)="editTodo($event)">
+        </app-task-item>
+
       </div>
     </div>
 
