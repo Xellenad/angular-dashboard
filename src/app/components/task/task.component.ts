@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { MatDialog } from '@angular/material/dialog';
 import { TaskItemModel } from 'src/app/core';
 // @ts-ignore
 import { v4 as uuidv } from 'uuid';
 import { LocalStorageService } from '../../shared/local-storage.service';
-
 import { RefactorWindowComponent } from '../refactor-window/refactor-window.component';
 
 
@@ -27,7 +26,8 @@ export class TaskComponent implements OnInit {
   constructor(
     private localStorageService: LocalStorageService,
     private dialog: MatDialog
-  ) {}
+  ) {
+  }
 
 
   ngOnInit() {
@@ -40,7 +40,6 @@ export class TaskComponent implements OnInit {
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     } else {
-      console.log(event);
       const data = event.item.data;
       const listId = event.container.id;
 
@@ -76,9 +75,9 @@ export class TaskComponent implements OnInit {
     if (this.inputText.trim()) {
       const todo: TaskItemModel = {
         title: this.inputTitle,
-        subtitle: this.inputText,
+        text: this.inputText,
         id: uuidv(),
-        type: 'todo'
+        type: 'todo',
       }
       this.allTodos.push(todo);
       this.localStorageService.saveTodoList(this.allTodos);
@@ -89,27 +88,28 @@ export class TaskComponent implements OnInit {
 
   deleteTodo(id: string) {
     const todo = this.allTodos.findIndex((element) => element.id === id);
-    if (todo > -1 ) {
+    if (todo > -1) {
       this.allTodos.splice(todo, 1);
       this.localStorageService.saveTodoList(this.allTodos);
       this.mapTodos();
     }
   }
 
-  openDialog(item: TaskItemModel) {
+  editTodo(item: TaskItemModel) {
     let dialogRef = this.dialog.open(RefactorWindowComponent, {
       height: '300px',
       width: '400px',
       data: item
     });
 
-    dialogRef.afterClosed().subscribe ( todo => {
+    dialogRef.afterClosed().subscribe(todo => {
       if (todo) {
-        const item: any = this.todos.find(item => item.id == todo.id )
-        item.title = todo.title
-        item.text = todo.text
-        //this.localStorageService.setLocalStorageData(LOCAL_STORAGE_LIST, this.todos)
-       }
+        const item: any = this.allTodos.find(item => item.id == todo.id)
+        item.title = todo.title;
+        item.text = todo.text;
+        this.localStorageService.saveTodoList(this.allTodos);
+        this.mapTodos();
+      }
     });
   }
 
