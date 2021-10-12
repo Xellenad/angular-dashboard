@@ -1,8 +1,6 @@
-import { Component, EventEmitter, Inject, Input, Output } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-
+import {Component, EventEmitter, Inject, Input, Output} from '@angular/core';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-refactor-window',

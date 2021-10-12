@@ -3,9 +3,6 @@ import { TaskItemModel } from 'src/app/core';
 
 @Injectable()
 export class LocalStorageService {
-
-  public todos: TaskItemModel[] = [];
-
   public getTodoList() {
     const storageData = localStorage.getItem('todo-list');
 
